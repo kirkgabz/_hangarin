@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hangarin | Pro Dashboard</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Pro Typography & Background */
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #f3f6f9; /* Sleek off-white/gray */
+            color: #2b3440;
+        }
+        h1, h2, h3, h4, h5, .navbar-brand { font-family: 'Poppins', sans-serif; }
+        
+        /* Modern Dark Navbar */
+        .navbar-custom { 
+            background-color: #0f172a; /* Midnight Blue */
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding: 1rem 0;
+        }
+        .navbar-brand { letter-spacing: 1px; font-weight: 800; color: #f8fafc !important; }
+        .brand-icon { color: #6366f1; } /* Indigo accent */
+
+        /* Premium Buttons */
+        .btn-gradient {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            border: none;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-gradient:hover {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Glassmorphism Cards */
+        .task-card {
+            background: #ffffff;
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+        .task-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+        }
+
+        /* Status Accent Lines */
+        .status-line { position: absolute; top: 0; left: 0; bottom: 0; width: 6px; }
+        .status-Completed { background-color: #10b981; } /* Emerald */
+        .status-In-Progress { background-color: #f59e0b; } /* Amber */
+        .status-Pending { background-color: #ef4444; } /* Red */
+
+        /* Custom Badges */
+        .badge-soft-primary { background-color: #e0e7ff; color: #4f46e5; }
+        .badge-soft-danger { background-color: #fee2e2; color: #dc2626; }
+        .badge-soft-success { background-color: #d1fae5; color: #059669; }
+        .badge-soft-warning { background-color: #fef3c7; color: #d97706; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom shadow-sm">
+        <div class="container-fluid px-4 px-lg-5">
+            <a class="navbar-brand fs-3" href="/">
+                <i class="bi bi-kanban brand-icon me-2"></i>HANGARIN
+            </a>
+            
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <div class="d-flex align-items-center mt-3 mt-lg-0">
+                    {% if user.is_authenticated %}
+                        <div class="d-flex align-items-center me-4">
+                            <div class="bg-secondary rounded-circle text-white d-flex justify-content-center align-items-center me-2" style="width: 35px; height: 35px; font-weight: bold;">
+                                {{ user.email|make_list|first|upper }}
+                            </div>
+                            <span class="text-light fw-medium">{{ user.email }}</span>
+                        </div>
+                        <form method="post" action="{% url 'account_logout' %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-light rounded-pill px-4 fw-medium border-opacity-50 hover-white">Logout</button>
+                        </form>
+                    {% else %}
+                        {% load socialaccount %}
+                        <a href="{% provider_login_url 'google' %}" class="btn btn-light rounded-pill px-4 fw-bold shadow-sm d-flex align-items-center">
+                            <i class="bi bi-google text-danger me-2"></i> Sign in with Google
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container-fluid px-4 px-lg-5 py-5">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load socialaccount %}
+
+{% block content %}
+<div class="animated-bg">
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
+    <div class="cloud cloud3"></div>
+    <div class="cloud cloud4"></div>
+    <div class="bird bird1"></div>
+    <div class="bird bird2"></div>
+    <div class="bird bird3"></div>
+</div>
+
+<div class="row justify-content-center align-items-center position-relative" style="min-height: 75vh; z-index: 10;">
+    <div class="col-md-6 col-lg-5 col-xl-4 text-center">
+        
+        <div class="card shadow-lg border-0 rounded-4 p-5" style="background-color: rgba(255, 255, 255, 0.95);">
+            <div class="mb-4">
+                <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 70px; height: 70px;">
+                    <i class="bi bi-kanban display-5" style="color: #0d6efd;"></i>
+                </div>
+            </div>
+            
+            <h3 class="fw-bold mb-1 text-dark">Welcome Back</h3>
+            <p class="text-muted mb-4 small">Sign in to your Hangarin account.</p>
+            
+            <form class="login" method="POST" action="{% url 'account_login' %}">
+                {% csrf_token %}
+                
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger p-2 small mb-3">
+                        {% for error in form.non_field_errors %}
+                            <i class="bi bi-exclamation-triangle-fill me-1"></i> {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                
+                <div class="mb-3 text-start">
+                    <label for="id_login" class="form-label fw-bold small text-muted mb-1">Email Address</label>
+                    {% if form.login.errors %}
+                        <div class="text-danger small mb-1">{% for error in form.login.errors %}{{ error }}{% endfor %}</div>
+                    {% endif %}
+                    <input type="email" name="login" id="id_login" class="form-control form-control-lg bg-light border-0 fs-6" placeholder="name@example.com" required value="{{ form.login.value|default:'' }}">
+                </div>
+                
+                <div class="mb-4 text-start">
+                    <label for="id_password" class="form-label fw-bold small text-muted mb-1">Password</label>
+                    
+                    <div class="input-group">
+                        <input type="password" name="password" id="id_password" class="form-control form-control-lg bg-light border-0 border-end-0 fs-6" placeholder="••••••••" required style="border-top-right-radius: 0; border-bottom-right-radius: 0;">
+                        <span class="input-group-text bg-light border-0 border-start-0 cursor-pointer transition-hover" id="togglePasswordCursor" style="border-top-left-radius: 0; border-bottom-left-radius: 0;">
+                            <i class="bi bi-eye text-muted" id="togglePasswordIcon"></i>
+                        </span>
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary btn-lg w-100 rounded-pill fw-bold shadow-sm fs-6" type="submit">Sign In</button>
+            </form>
+
+            <div class="d-flex align-items-center my-4">
+                <hr class="flex-grow-1 text-muted">
+                <span class="mx-3 text-muted small fw-bold">OR</span>
+                <hr class="flex-grow-1 text-muted">
+            </div>
+            
+            <a href="{% provider_login_url 'google' %}" class="btn btn-outline-dark btn-lg w-100 rounded-pill fw-bold d-flex align-items-center justify-content-center transition-hover fs-6">
+                <i class="bi bi-google text-danger me-2"></i> Continue with Google
+            </a>
+            
+            <div class="mt-4 pt-2">
+                <span class="text-muted small">Don't have an account?</span>
+                <a href="{% url 'account_signup' %}" class="text-decoration-none fw-bold ms-1" style="color: #0d6efd;">Register</a>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<style>
+    /* HIDE NAV CONTROLS ON LOGIN ONLY */
+    nav.navbar .d-flex { display: none !important; }
+
+    /* Premium Cursor & Hover */
+    .cursor-pointer { cursor: pointer; }
+    .transition-hover { transition: all 0.2s ease-in-out; }
+    .transition-hover:hover { background-color: #f0f0f0 !important; transform: translateY(-1px); }
+
+    /* Animated Sky BG */
+    body { background-color: #ffffff !important; overflow-x: hidden; }
+    .animated-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; overflow: hidden; pointer-events: none; }
+    .cloud { position: absolute; background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 50"><path fill="%23bae6fd" opacity="0.6" d="M30,50 a20,20 0 0,1 0,-40 a25,25 0 0,1 40,-10 a20,20 0 0,1 30,20 a15,15 0 0,1 0,30 z"/></svg>') no-repeat center; background-size: contain; animation: drift linear infinite; }
+    .cloud1 { width: 180px; height: 90px; top: 10%; animation-duration: 45s; animation-delay: -15s; }
+    .cloud2 { width: 280px; height: 140px; top: 40%; animation-duration: 65s; animation-delay: -40s; opacity: 0.7; }
+    .cloud3 { width: 140px; height: 70px; top: 75%; animation-duration: 35s; animation-delay: -5s; opacity: 0.9; }
+    .cloud4 { width: 200px; height: 100px; top: 25%; animation-duration: 55s; animation-delay: -25s; }
+    .bird { position: absolute; background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 50"><path fill="none" stroke="%2394a3b8" stroke-width="5" stroke-linecap="round" d="M10,30 Q25,10 50,30 Q75,10 90,30"/></svg>') no-repeat center; background-size: contain; opacity: 0.5; animation: fly linear infinite; }
+    .bird1 { width: 45px; height: 22px; top: 20%; animation-duration: 20s; animation-delay: -2s; }
+    .bird2 { width: 35px; height: 17px; top: 35%; animation-duration: 28s; animation-delay: -12s; }
+    .bird3 { width: 40px; height: 20px; top: 65%; animation-duration: 24s; animation-delay: -8s; }
+    @keyframes drift { 0% { transform: translateX(-20vw); } 100% { transform: translateX(120vw); } }
+    @keyframes fly { 0% { transform: translateX(-15vw) translateY(0px); } 25% { transform: translateX(25vw) translateY(-20px); } 50% { transform: translateX(60vw) translateY(10px); } 75% { transform: translateX(90vw) translateY(-15px); } 100% { transform: translateX(115vw) translateY(0px); } }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const togglePasswordCursor = document.querySelector("#togglePasswordCursor");
+        const passwordInput = document.querySelector("#id_password");
+        const eyeIcon = document.querySelector("#togglePasswordIcon");
+
+        togglePasswordCursor.addEventListener("click", function() {
+            // Toggle the 'type' attribute
+            const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+            passwordInput.setAttribute("type", type);
+            
+            // Toggle the eye / eye-slash icon
+            eyeIcon.classList.toggle("bi-eye");
+            eyeIcon.classList.toggle("bi-eye-slash");
+        });
+    });
+</script>
+{% endblock %}

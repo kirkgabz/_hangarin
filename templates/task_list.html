@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-end mb-5 bg-white p-4 rounded-4 shadow-sm">
+    <div>
+        <h1 class="display-5 fw-bold text-dark mb-1">Task Board</h1>
+        <p class="text-muted mb-0">Track your progress from pending to completed.</p>
+    </div>
+    <a href="{% url 'create_task' %}" class="btn btn-gradient btn-lg rounded-pill px-4 shadow">
+        <i class="bi bi-plus-lg me-2"></i> Create Task
+    </a>
+</div>
+
+<div class="row g-4">
+    
+    <div class="col-md-4">
+        <h4 class="fw-bold mb-3 d-flex align-items-center">
+            <i class="bi bi-circle text-danger me-2"></i> Pending
+            <span class="badge bg-light text-dark ms-auto rounded-pill border">{{ pending_tasks|length }}</span>
+        </h4>
+        <div class="d-flex flex-column gap-3">
+            {% for task in pending_tasks %}
+                {% include "partials/task_card.html" with task=task color="danger" %}
+            {% empty %} <div class="text-muted small p-3 border rounded-3 bg-light text-center">No pending tasks.</div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <h4 class="fw-bold mb-3 d-flex align-items-center">
+            <i class="bi bi-arrow-repeat text-warning me-2"></i> In Progress
+            <span class="badge bg-light text-dark ms-auto rounded-pill border">{{ in_progress_tasks|length }}</span>
+        </h4>
+        <div class="d-flex flex-column gap-3">
+            {% for task in in_progress_tasks %}
+                {% include "partials/task_card.html" with task=task color="warning" %}
+            {% empty %} <div class="text-muted small p-3 border rounded-3 bg-light text-center">No tasks in progress.</div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <h4 class="fw-bold mb-3 d-flex align-items-center">
+            <i class="bi bi-check-circle-fill text-success me-2"></i> Completed
+            <span class="badge bg-light text-dark ms-auto rounded-pill border">{{ completed_tasks|length }}</span>
+        </h4>
+        <div class="d-flex flex-column gap-3">
+            {% for task in completed_tasks %}
+                {% include "partials/task_card.html" with task=task color="success" %}
+            {% empty %} <div class="text-muted small p-3 border rounded-3 bg-light text-center">No completed tasks yet.</div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+{% endblock %}

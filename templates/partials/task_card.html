@@ -1,0 +1,29 @@
+<div class="task-card bg-white rounded-4 shadow-sm border-0 position-relative overflow-hidden">
+    <div class="status-line bg-{{ color }} position-absolute top-0 start-0 bottom-0" style="width: 5px;"></div>
+    
+    <div class="card-body p-3 ms-2">
+        
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <span class="badge badge-soft-{{ color }} rounded-pill px-2 py-1 fw-semibold" style="font-size: 0.75rem;">
+                {{ task.category.name }}
+            </span>
+            <span class="text-muted fw-medium" style="font-size: 0.75rem;">
+                <i class="bi bi-calendar4 me-1"></i>{{ task.deadline|date:"M d" }}
+            </span>
+        </div>
+
+        <h6 class="fw-bold mb-1 text-dark">{{ task.title|truncatechars:35 }}</h6>
+        <p class="text-secondary mb-3" style="line-height: 1.4; font-size: 0.8rem;">
+            {{ task.description|truncatewords:8 }}
+        </p>
+        
+        <div class="d-flex justify-content-between align-items-center pt-2 border-top border-light">
+            <div class="text-muted" style="font-size: 0.75rem;">
+                Priority: <strong class="text-dark">{{ task.priority.name }}</strong>
+            </div>
+           <a href="{% url 'task_detail' task.id %}" class="text-decoration-none fw-bold" style="color: #6366f1; font-size: 0.8rem;">
+    View <i class="bi bi-arrow-right ms-1"></i>
+</a>
+        </div>
+    </div>
+</div>
