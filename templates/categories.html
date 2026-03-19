@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="glass-panel p-4" style="height: 100%; overflow-y: auto;">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="m-0 text-white fw-bold"><i class="bi bi-tags text-primary me-2"></i>Task Categories</h3>
+        <span class="badge bg-white bg-opacity-10 text-white rounded-pill px-3 py-2 fs-6">Total: {{ categories.count }}</span>
+    </div>
+    
+    <div class="row g-4">
+        {% for category in categories %}
+        <div class="col-md-4 col-lg-3">
+            <div class="glass-panel p-4 text-center task-card h-100 d-flex flex-column justify-content-center transition-all">
+                <i class="bi bi-folder2-open display-4 text-info mb-3"></i>
+                <h4 class="text-white fw-bold">{{ category.name }}</h4>
+                <div class="mt-auto pt-3 border-top border-white border-opacity-10">
+                    <p class="text-white-50 mb-0 fs-6">{{ category.task_set.count }} Tasks associated</p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center py-5">
+            <i class="bi bi-inbox text-white-50 display-1 mb-3"></i>
+            <p class="text-white-50 fs-5">No categories found.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

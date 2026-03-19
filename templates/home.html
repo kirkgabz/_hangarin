@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+
+{% block extra_css %}
+<style>
+    .welcome-gradient {
+        background: linear-gradient(135deg, rgba(30, 58, 138, 0.4) 0%, rgba(88, 28, 135, 0.4) 100%);
+        border: 1px solid rgba(139, 92, 246, 0.3);
+    }
+    
+    .metric-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .progress-glass {
+        height: 12px;
+        background: rgba(255,255,255,0.05);
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .status-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="row g-4 mb-4">
+    <div class="col-lg-8">
+        <div class="glass-panel welcome-gradient p-5 h-100 d-flex flex-column justify-content-center" style="position: relative; overflow: hidden;">
+            <div style="position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; background: #06b6d4; filter: blur(80px); opacity: 0.3;"></div>
+            
+            <h1 class="text-white fw-bold mb-2" style="font-size: 2.5rem;">Welcome back, {{ user.username|default:"User" }}</h1>
+            <p class="text-white-50 fs-5 m-0">Today is {% now "l, F j, Y" %}. Let's get things done.</p>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="row g-3 h-100">
+            <div class="col-6">
+                <div class="glass-panel p-3 h-100 d-flex flex-column justify-content-between">
+                    <span class="text-white-50 text-uppercase small fw-bold" style="letter-spacing: 1px;">Subtasks</span>
+                    <span class="metric-number text-white">45</span>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="glass-panel p-3 h-100 d-flex flex-column justify-content-between">
+                    <span class="text-white-50 text-uppercase small fw-bold" style="letter-spacing: 1px;">Notes</span>
+                    <span class="metric-number text-white">39</span>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="glass-panel p-3 h-100 d-flex flex-column justify-content-between">
+                    <span class="text-white-50 text-uppercase small fw-bold" style="letter-spacing: 1px;">Categories</span>
+                    <span class="metric-number text-white">5</span>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="glass-panel p-3 h-100 d-flex flex-column justify-content-between">
+                    <span class="text-white-50 text-uppercase small fw-bold" style="letter-spacing: 1px;">Priorities</span>
+                    <span class="metric-number text-white">5</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-3">
+        <div class="glass-panel p-4 h-100">
+            <span class="text-white-50 text-uppercase small fw-bold d-block mb-2" style="letter-spacing: 1px;">Total Tasks</span>
+            <span class="metric-number text-white">{{ pending_tasks.count|add:in_progress_tasks.count|add:completed_tasks.count }}</span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="glass-panel p-4 h-100" style="border-bottom: 3px solid #f97316;">
+            <span class="text-white-50 text-uppercase small fw-bold d-block mb-2" style="letter-spacing: 1px;">Pending</span>
+            <span class="metric-number text-white">{{ pending_tasks.count }}</span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="glass-panel p-4 h-100" style="border-bottom: 3px solid #06b6d4;">
+            <span class="text-white-50 text-uppercase small fw-bold d-block mb-2" style="letter-spacing: 1px;">In Progress</span>
+            <span class="metric-number text-white">{{ in_progress_tasks.count }}</span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="glass-panel p-4 h-100" style="border-bottom: 3px solid #10b981;">
+            <span class="text-white-50 text-uppercase small fw-bold d-block mb-2" style="letter-spacing: 1px;">Completed</span>
+            <span class="metric-number text-white">{{ completed_tasks.count }}</span>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-6">
+        <div class="glass-panel p-4 h-100">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <span class="text-info text-uppercase small fw-bold" style="letter-spacing: 1px;">Status Flow</span>
+                    <h4 class="text-white m-0">Task Status Overview</h4>
+                </div>
+                <span class="badge bg-primary bg-opacity-25 text-primary rounded-pill px-3 py-2">Live completion mix</span>
+            </div>
+
+            <div class="mb-4">
+                <div class="d-flex justify-content-between text-white-50 mb-2 small">
+                    <span class="text-white"><span class="status-dot bg-warning me-2" style="background: #f97316 !important;"></span>Pending</span>
+                    <span>{{ pending_tasks.count }} tasks</span>
+                </div>
+                <div class="progress-glass">
+                    <div class="h-100 rounded-pill" style="width: 25%; background: linear-gradient(90deg, #ea580c, #f97316);"></div>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <div class="d-flex justify-content-between text-white-50 mb-2 small">
+                    <span class="text-white"><span class="status-dot bg-info me-2" style="background: #06b6d4 !important;"></span>In Progress</span>
+                    <span>{{ in_progress_tasks.count }} tasks</span>
+                </div>
+                <div class="progress-glass">
+                    <div class="h-100 rounded-pill" style="width: 40%; background: linear-gradient(90deg, #0891b2, #06b6d4);"></div>
+                </div>
+            </div>
+            
+            <div>
+                <div class="d-flex justify-content-between text-white-50 mb-2 small">
+                    <span class="text-white"><span class="status-dot bg-success me-2" style="background: #10b981 !important;"></span>Completed</span>
+                    <span>{{ completed_tasks.count }} tasks</span>
+                </div>
+                <div class="progress-glass">
+                    <div class="h-100 rounded-pill" style="width: 35%; background: linear-gradient(90deg, #059669, #10b981);"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="glass-panel p-4 h-100">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <span class="text-purple text-uppercase small fw-bold" style="color: #a855f7; letter-spacing: 1px;">Category Loadout</span>
+                    <h4 class="text-white m-0">Top Categories</h4>
+                </div>
+                <span class="badge bg-purple bg-opacity-25 rounded-pill px-3 py-2" style="color: #c084fc; background: rgba(168, 85, 247, 0.15);">Most active buckets</span>
+            </div>
+
+            <div class="d-flex flex-column gap-3">
+                <div class="glass-panel p-3 d-flex justify-content-between align-items-center" style="background: rgba(255,255,255,0.02);">
+                    <span class="text-white-50">Personal</span>
+                    <span class="text-white fw-bold">6 tasks</span>
+                </div>
+                <div class="glass-panel p-3 d-flex justify-content-between align-items-center" style="background: rgba(255,255,255,0.02);">
+                    <span class="text-white-50">Projects</span>
+                    <span class="text-white fw-bold">5 tasks</span>
+                </div>
+                <div class="glass-panel p-3 d-flex justify-content-between align-items-center" style="background: rgba(255,255,255,0.02);">
+                    <span class="text-white-50">Work</span>
+                    <span class="text-white fw-bold">4 tasks</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

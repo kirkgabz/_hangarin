@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="glass-panel p-4 flex-grow-1 d-flex flex-column" style="height: 100%; overflow: hidden;">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="m-0 text-white fw-bold"><i class="bi bi-check2-square text-success me-2"></i>All Subtasks</h3>
+        <span class="badge bg-white bg-opacity-10 text-white rounded-pill px-3 py-2 fs-6">Total: {{ subtasks.count }}</span>
+    </div>
+    
+    <div class="table-responsive flex-grow-1" style="overflow-y: auto;">
+        <table class="table table-borderless text-white align-middle m-0">
+            <thead class="border-bottom border-white border-opacity-25 text-white-50 position-sticky top-0" style="background: rgba(15, 23, 42, 0.9); z-index: 1;">
+                <tr>
+                    <th class="py-3 fw-medium">Subtask Title</th>
+                    <th class="py-3 fw-medium">Status</th>
+                    <th class="py-3 fw-medium">Parent Task</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for subtask in subtasks %}
+                <tr class="border-bottom border-white border-opacity-10 task-card" style="background: transparent; box-shadow: none;">
+                    <td class="py-3 fw-medium text-white">{{ subtask.title }}</td>
+                    <td class="py-3">
+                        <span class="badge {% if subtask.status == 'Completed' %}bg-success{% else %}bg-warning{% endif %} bg-opacity-25 border border-white border-opacity-25 px-3 py-2 rounded-pill">
+                            {{ subtask.status }}
+                        </span>
+                    </td>
+                    <td class="py-3 text-white-50">
+                        <a href="{% url 'task_detail' subtask.parent_task.id %}" class="text-info text-decoration-none hover-white">
+                            {{ subtask.parent_task.title|truncatechars:40 }}
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3" class="text-white-50 py-5 text-center">
+                        <i class="bi bi-inbox display-4 d-block mb-3"></i>
+                        No subtasks found.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

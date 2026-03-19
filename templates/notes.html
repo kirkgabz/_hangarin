@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="glass-panel p-4" style="height: 100%; overflow-y: auto;">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="m-0 text-white fw-bold"><i class="bi bi-journal-text text-danger me-2"></i>Task Notes</h3>
+        <span class="badge bg-white bg-opacity-10 text-white rounded-pill px-3 py-2 fs-6">Total: {{ notes.count }}</span>
+    </div>
+
+    <div class="row g-4">
+        {% for note in notes %}
+        <div class="col-md-6 col-lg-4">
+            <div class="glass-panel p-4 task-card h-100 d-flex flex-column" style="border-left: 4px solid #f87171;">
+                <i class="bi bi-quote text-white-50 fs-1 position-absolute top-0 end-0 mt-2 me-3 opacity-25"></i>
+                <p class="text-white fs-6 mb-4 mt-2 position-relative" style="line-height: 1.6;">"{{ note.content }}"</p>
+                
+                <div class="mt-auto">
+                    <hr class="border-white border-opacity-25">
+                    <div class="d-flex justify-content-between align-items-center text-white-50 small">
+                        <a href="{% url 'task_detail' note.task.id %}" class="text-info text-decoration-none text-truncate me-3" style="max-width: 150px;">
+                            <i class="bi bi-link-45deg"></i> {{ note.task.title }}
+                        </a>
+                        <span class="text-nowrap"><i class="bi bi-clock me-1"></i>{{ note.created_at|date:"M d, Y" }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center py-5">
+            <i class="bi bi-inbox text-white-50 display-1 mb-3"></i>
+            <p class="text-white-50 fs-5">No notes found.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

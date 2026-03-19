@@ -3,114 +3,203 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hangarin | Pro Dashboard</title>
+    <title>Hangarin | Glass Workspace</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* Pro Typography & Background */
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: #f3f6f9; /* Sleek off-white/gray */
-            color: #2b3440;
+        /* Base Background - Blurred Workspace */
+        body, html {
+            margin: 0; padding: 0; height: 100vh;
+            font-family: 'Inter', sans-serif;
+            color: #e2e8f0;
+            background: linear-gradient(rgba(8, 11, 22, 0.7), rgba(8, 11, 22, 0.8)), url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop') no-repeat center center fixed;
+            background-size: cover;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        h1, h2, h3, h4, h5, .navbar-brand { font-family: 'Poppins', sans-serif; }
-        
-        /* Modern Dark Navbar */
-        .navbar-custom { 
-            background-color: #0f172a; /* Midnight Blue */
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            padding: 1rem 0;
-        }
-        .navbar-brand { letter-spacing: 1px; font-weight: 800; color: #f8fafc !important; }
-        .brand-icon { color: #6366f1; } /* Indigo accent */
 
-        /* Premium Buttons */
-        .btn-gradient {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-            border: none;
-            color: white;
-            font-weight: 600;
+        h1, h2, h3, h4, h5 { font-family: 'Poppins', sans-serif; }
+
+        /* The Master Holographic Container (From Image 2) */
+        .master-container {
+            width: 96vw;
+            height: 94vh;
+            display: flex;
+            background: rgba(16, 25, 40, 0.35);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(255,255,255,0.05);
+            overflow: hidden;
+        }
+
+        /* Inner Glass Panels */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
             transition: all 0.3s ease;
         }
-        .btn-gradient:hover {
-            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 15px rgba(99, 102, 241, 0.3);
+
+        .glass-panel:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(6, 182, 212, 0.4); /* Cyan Glow on hover */
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.1);
         }
 
-        /* Glassmorphism Cards */
-        .task-card {
-            background: #ffffff;
-            border: none;
+        /* Sidebar Styling */
+        .sidebar {
+            width: 260px;
+            display: flex;
+            flex-direction: column;
+            padding: 25px 20px;
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar-brand {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 40px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            text-shadow: 0 0 10px rgba(255,255,255,0.3);
+        }
+
+        .sidebar-menu { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+        
+        .sidebar-menu a {
+            color: #94a3b8;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: inset 4px 0 0 #06b6d4; /* Cyan accent line */
+        }
+
+        /* Main Content Wrapper */
+        .main-wrapper {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 25px 30px;
+            overflow-y: auto;
+        }
+
+        /* Top Header Styling */
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        /* Neon Buttons */
+        .btn-neon {
+            background: transparent;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px 20px;
             border-radius: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            position: relative;
-            overflow: hidden;
-            height: 100%;
-        }
-        .task-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+            font-weight: 500;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            text-decoration: none;
         }
 
-        /* Status Accent Lines */
-        .status-line { position: absolute; top: 0; left: 0; bottom: 0; width: 6px; }
-        .status-Completed { background-color: #10b981; } /* Emerald */
-        .status-In-Progress { background-color: #f59e0b; } /* Amber */
-        .status-Pending { background-color: #ef4444; } /* Red */
+        .btn-neon:hover {
+            border-color: #06b6d4;
+            color: #06b6d4;
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.3);
+        }
 
-        /* Custom Badges */
-        .badge-soft-primary { background-color: #e0e7ff; color: #4f46e5; }
-        .badge-soft-danger { background-color: #fee2e2; color: #dc2626; }
-        .badge-soft-success { background-color: #d1fae5; color: #059669; }
-        .badge-soft-warning { background-color: #fef3c7; color: #d97706; }
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+
     </style>
+    {% block extra_css %}{% endblock %}
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom shadow-sm">
-        <div class="container-fluid px-4 px-lg-5">
-            <a class="navbar-brand fs-3" href="/">
-                <i class="bi bi-kanban brand-icon me-2"></i>HANGARIN
-            </a>
-            
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <div class="d-flex align-items-center mt-3 mt-lg-0">
-                    {% if user.is_authenticated %}
-                        <div class="d-flex align-items-center me-4">
-                            <div class="bg-secondary rounded-circle text-white d-flex justify-content-center align-items-center me-2" style="width: 35px; height: 35px; font-weight: bold;">
-                                {{ user.email|make_list|first|upper }}
-                            </div>
-                            <span class="text-light fw-medium">{{ user.email }}</span>
-                        </div>
-                        <form method="post" action="{% url 'account_logout' %}">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-outline-light rounded-pill px-4 fw-medium border-opacity-50 hover-white">Logout</button>
-                        </form>
-                    {% else %}
-                        {% load socialaccount %}
-                        <a href="{% provider_login_url 'google' %}" class="btn btn-light rounded-pill px-4 fw-bold shadow-sm d-flex align-items-center">
-                            <i class="bi bi-google text-danger me-2"></i> Sign in with Google
-                        </a>
-                    {% endif %}
-                </div>
+    <div class="master-container">
+        
+        <nav class="sidebar">
+            <div class="sidebar-brand">
+                <i class="bi bi-hexagon-fill text-info me-2 fs-4" style="filter: drop-shadow(0 0 8px #06b6d4);"></i>
+                HANGARIN
             </div>
-        </div>
-    </nav>
+            
+            <ul class="sidebar-menu">
+                <li><a href="{% url 'dashboard' %}" class="{% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}"><i class="bi bi-grid-1x2"></i> Dashboard</a></li>
+                <li><a href="{% url 'dashboard' %}"><i class="bi bi-check2-circle"></i> Tasks</a></li>
+                <li><a href="{% url 'subtasks' %}"><i class="bi bi-diagram-2"></i> Sub Tasks</a></li>
+                <li><a href="{% url 'categories' %}"><i class="bi bi-collection"></i> Categories</a></li>
+                <li><a href="{% url 'priorities' %}"><i class="bi bi-flag"></i> Priorities</a></li>
+                <li><a href="{% url 'notes' %}"><i class="bi bi-journal-text"></i> Notes</a></li>
+            </ul>
+        </nav>
+        
+        <div class="main-wrapper">
+            
+            <header class="top-header">
+                <h2 class="m-0 fs-3 fw-bold text-white">Dashboard</h2>
+                
+                <div class="d-flex align-items-center gap-3">
+                    <a href="{% url 'create_task' %}" class="btn-neon">
+                        <i class="bi bi-plus-circle"></i> New Task
+                    </a>
+                    
+                    <div class="glass-panel px-4 py-2 d-flex align-items-center" style="border-radius: 20px;">
+                        <span class="text-white-50 text-uppercase" style="font-size: 0.7rem; letter-spacing: 1px;">Today</span>
+                        <span class="ms-2 fw-medium fs-6">{% now "M d, Y" %}</span>
+                    </div>
 
-    <main class="container-fluid px-4 px-lg-5 py-5">
-        {% block content %}
-        {% endblock %}
-    </main>
+                    <div class="glass-panel px-3 py-1 d-flex align-items-center gap-2" style="border-radius: 30px;">
+                        <div class="rounded-circle text-white d-flex justify-content-center align-items-center fw-bold" style="width: 32px; height: 32px; background: linear-gradient(135deg, #6366f1, #a855f7);">
+                            {{ user.email|make_list|first|upper|default:"U" }}
+                        </div>
+                        <span class="fw-medium px-2">{{ user.username|default:"User" }}</span>
+                    </div>
+
+                    <form method="post" action="{% url 'account_logout' %}" class="m-0">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-neon text-danger border-danger border-opacity-50">
+                            <i class="bi bi-box-arrow-right"></i> Log Out
+                        </button>
+                    </form>
+                </div>
+            </header>
+            
+            {% block content %}
+            {% endblock %}
+            
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
