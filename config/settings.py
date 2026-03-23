@@ -1,4 +1,5 @@
 from pathlib import Path
+from django.templatetags.static import static
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -9,7 +10,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
-    'jazzmin',
+    'unfold',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -22,6 +23,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.github',
 ]
 
 SITE_ID = 1
@@ -89,60 +91,45 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
 STATIC_URL = 'static/'
-
+STATICFILES_DIRS = [BASE_DIR / 'static']
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# ==========================================
-# ALLAUTH & LOGIN SETTINGS
-# ==========================================
 SITE_ID = 1
-
-# Routing
-LOGIN_REDIRECT_URL = '/'                   # Where to go after logging in
-LOGOUT_REDIRECT_URL = '/accounts/login/'   # Where to go after logging out
-LOGIN_URL = '/accounts/login/'             # Where to send unauthenticated users
-
-# Account & Email Settings
+LOGIN_REDIRECT_URL = '/'                   
+LOGOUT_REDIRECT_URL = '/accounts/login/'   
+LOGIN_URL = '/accounts/login/'             
 ACCOUNT_LOGIN_METHODS = {'email'}
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'none'        # <-- FIX: Stops the email verification loop
+ACCOUNT_EMAIL_VERIFICATION = 'none'        
+SOCIALACCOUNT_AUTO_SIGNUP = True           
+SOCIALACCOUNT_LOGIN_ON_GET = True          
+ACCOUNT_LOGOUT_ON_GET = True               
 
-# Social Account (Google) Settings
-SOCIALACCOUNT_AUTO_SIGNUP = True           # <-- FIX: Skips that ugly intermediate signup form!
-SOCIALACCOUNT_LOGIN_ON_GET = True          # Skips the Google confirmation prompt
-ACCOUNT_LOGOUT_ON_GET = True               # Skips the Logout confirmation prompt
-
-JAZZMIN_SETTINGS = {
-    "site_title": "Hangarin Admin",
-    "site_header": "Hangarin",
-    "site_brand": "Hangarin",
-    "welcome_sign": "Welcome to the Hangarin Dashboard",
-    "copyright": "Hangarin Task Manager", 
-    "show_ui_builder": True,
-}
-# We will paste the UI Builder output here later
-JAZZMIN_UI_TWEAKS = {
-    # You can change "pulse" to "darkly" for dark mode, or "flatly" for a clean flat look!
-    "theme": "pulse", 
-    "dark_mode_theme": "darkly",
-    "navbar": "navbar-white navbar-light",
-    "sidebar": "sidebar-dark-primary",
-    "brand_colour": "navbar-primary",
-    "accent": "accent-primary",
-    "button_classes": {
-        "primary": "btn-primary",
-        "secondary": "btn-secondary",
-        "info": "btn-info",
-        "warning": "btn-warning",
-        "danger": "btn-danger",
-        "success": "btn-success"
-    }
+UNFOLD = {
+    "SITE_TITLE": "Hangarin Admin",
+    "SITE_HEADER": "Hangarin Admin",
+    
+    "STYLES": [
+        lambda request: static("css/hangarin_theme.css"),
+    ],
+    
+    "COLORS": {
+        "primary": {
+            "50": "#f5f3ff",
+            "100": "#ede9fe",
+            "200": "#ddd6fe",
+            "300": "#c4b5fd",
+            "400": "#a78bfa",
+            "500": "#8b5cf6", 
+            "600": "#7c3aed",
+            "700": "#6d28d9",
+            "800": "#5b21b6",
+            "900": "#4c1d95",
+        },
+    },
 }

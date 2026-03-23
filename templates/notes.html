@@ -1,36 +1,104 @@
 {% extends 'base.html' %}
+{% block header_title %}Notes Archive{% endblock %}
 
 {% block content %}
-<div class="glass-panel p-4" style="height: 100%; overflow-y: auto;">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h3 class="m-0 text-white fw-bold"><i class="bi bi-journal-text text-danger me-2"></i>Task Notes</h3>
-        <span class="badge bg-white bg-opacity-10 text-white rounded-pill px-3 py-2 fs-6">Total: {{ notes.count }}</span>
+<div class="d-flex flex-column h-100 pb-4">
+    
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-shrink-0">
+        <div class="d-flex align-items-center">
+            <a href="javascript:history.back()" class="text-white-50 text-decoration-none me-3 transition-all hover-white" title="Go Back">
+                <i class="bi bi-arrow-left-circle fs-3"></i>
+            </a>
+            <h3 class="m-0 text-white fw-bold"><i class="bi bi-journal-text text-danger me-2"></i>Task Notes</h3>
+        </div>
     </div>
 
-    <div class="row g-4">
-        {% for note in notes %}
-        <div class="col-md-6 col-lg-4">
-            <div class="glass-panel p-4 task-card h-100 d-flex flex-column" style="border-left: 4px solid #f87171;">
-                <i class="bi bi-quote text-white-50 fs-1 position-absolute top-0 end-0 mt-2 me-3 opacity-25"></i>
-                <p class="text-white fs-6 mb-4 mt-2 position-relative" style="line-height: 1.6;">"{{ note.content }}"</p>
-                
-                <div class="mt-auto">
-                    <hr class="border-white border-opacity-25">
-                    <div class="d-flex justify-content-between align-items-center text-white-50 small">
-                        <a href="{% url 'task_detail' note.task.id %}" class="text-info text-decoration-none text-truncate me-3" style="max-width: 150px;">
-                            <i class="bi bi-link-45deg"></i> {{ note.task.title }}
-                        </a>
-                        <span class="text-nowrap"><i class="bi bi-clock me-1"></i>{{ note.created_at|date:"M d, Y" }}</span>
+    <div class="row g-4 flex-grow-1 h-100" style="overflow: hidden;">
+        
+        <div class="col-md-4 d-flex flex-column h-100">
+            <div class="d-flex justify-content-between align-items-center mb-3 flex-shrink-0">
+                <h5 class="text-white m-0 fw-bold border-bottom border-warning pb-2 pe-4">Pending Tasks</h5>
+                <span class="badge bg-white bg-opacity-10 rounded-pill">{{ pending_notes.paginator.count }}</span>
+            </div>
+            <div class="glass-panel p-3 flex-grow-1 d-flex flex-column" style="overflow: hidden;">
+                <div class="flex-grow-1" style="overflow-y: auto; padding-right: 5px;">
+                    {% for note in pending_notes %}
+                    <div class="glass-panel p-3 mb-3 d-flex flex-column" style="border-left: 4px solid #f97316;">
+                        <p class="text-white fs-6 mb-3" style="line-height: 1.5;">"{{ note.content }}"</p>
+                        <div class="mt-auto">
+                            <hr class="border-white border-opacity-25 mt-0 mb-2">
+                            <div class="d-flex justify-content-between align-items-center text-white-50 small">
+                                <a href="{% url 'task_detail' note.task.id %}" class="text-info text-decoration-none text-truncate me-2" style="max-width: 140px;">
+                                    <i class="bi bi-link-45deg"></i> {{ note.task.title }}
+                                </a>
+                                <span class="text-nowrap"><i class="bi bi-clock me-1"></i>{{ note.created_at|date:"M d" }}</span>
+                            </div>
+                        </div>
                     </div>
+                    {% empty %}
+                    <p class="text-white-50 text-center mt-4">No notes for pending tasks.</p>
+                    {% endfor %}
                 </div>
+                {% include 'partials/pagination.html' with page_obj=pending_notes param_name='pending_page' %}
             </div>
         </div>
-        {% empty %}
-        <div class="col-12 text-center py-5">
-            <i class="bi bi-inbox text-white-50 display-1 mb-3"></i>
-            <p class="text-white-50 fs-5">No notes found.</p>
+
+        <div class="col-md-4 d-flex flex-column h-100">
+            <div class="d-flex justify-content-between align-items-center mb-3 flex-shrink-0">
+                <h5 class="text-white m-0 fw-bold border-bottom border-info pb-2 pe-4">In Progress Tasks</h5>
+                <span class="badge bg-white bg-opacity-10 rounded-pill">{{ in_progress_notes.paginator.count }}</span>
+            </div>
+            <div class="glass-panel p-3 flex-grow-1 d-flex flex-column" style="overflow: hidden;">
+                <div class="flex-grow-1" style="overflow-y: auto; padding-right: 5px;">
+                    {% for note in in_progress_notes %}
+                    <div class="glass-panel p-3 mb-3 d-flex flex-column" style="border-left: 4px solid #06b6d4;">
+                        <p class="text-white fs-6 mb-3" style="line-height: 1.5;">"{{ note.content }}"</p>
+                        <div class="mt-auto">
+                            <hr class="border-white border-opacity-25 mt-0 mb-2">
+                            <div class="d-flex justify-content-between align-items-center text-white-50 small">
+                                <a href="{% url 'task_detail' note.task.id %}" class="text-info text-decoration-none text-truncate me-2" style="max-width: 140px;">
+                                    <i class="bi bi-link-45deg"></i> {{ note.task.title }}
+                                </a>
+                                <span class="text-nowrap"><i class="bi bi-clock me-1"></i>{{ note.created_at|date:"M d" }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="text-white-50 text-center mt-4">No notes for in-progress tasks.</p>
+                    {% endfor %}
+                </div>
+                {% include 'partials/pagination.html' with page_obj=in_progress_notes param_name='in_progress_page' %}
+            </div>
         </div>
-        {% endfor %}
+
+        <div class="col-md-4 d-flex flex-column h-100">
+            <div class="d-flex justify-content-between align-items-center mb-3 flex-shrink-0">
+                <h5 class="text-white m-0 fw-bold border-bottom border-success pb-2 pe-4">Completed Tasks</h5>
+                <span class="badge bg-white bg-opacity-10 rounded-pill">{{ completed_notes.paginator.count }}</span>
+            </div>
+            <div class="glass-panel p-3 flex-grow-1 d-flex flex-column" style="overflow: hidden;">
+                <div class="flex-grow-1" style="overflow-y: auto; padding-right: 5px;">
+                    {% for note in completed_notes %}
+                    <div class="glass-panel p-3 mb-3 d-flex flex-column" style="border-left: 4px solid #10b981;">
+                        <p class="text-white fs-6 mb-3" style="line-height: 1.5;">"{{ note.content }}"</p>
+                        <div class="mt-auto">
+                            <hr class="border-white border-opacity-25 mt-0 mb-2">
+                            <div class="d-flex justify-content-between align-items-center text-white-50 small">
+                                <a href="{% url 'task_detail' note.task.id %}" class="text-info text-decoration-none text-truncate me-2" style="max-width: 140px;">
+                                    <i class="bi bi-link-45deg"></i> {{ note.task.title }}
+                                </a>
+                                <span class="text-nowrap"><i class="bi bi-clock me-1"></i>{{ note.created_at|date:"M d" }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="text-white-50 text-center mt-4">No notes for completed tasks.</p>
+                    {% endfor %}
+                </div>
+                {% include 'partials/pagination.html' with page_obj=completed_notes param_name='completed_page' %}
+            </div>
+        </div>
+
     </div>
 </div>
 {% endblock %}

@@ -7,20 +7,8 @@
         border: 1px solid rgba(139, 92, 246, 0.3);
     }
     
-    .metric-number {
-        font-size: 2.5rem;
-        font-weight: 700;
-        font-family: 'Poppins', sans-serif;
-    }
-
-    .progress-glass {
-        height: 12px;
-        background: rgba(255,255,255,0.05);
-        border-radius: 10px;
-        overflow: hidden;
-        border: 1px solid rgba(255,255,255,0.05);
-    }
-
+    .metric-number { font-size: 2.5rem; font-weight: 700; font-family: 'Poppins', sans-serif; }
+    .progress-glass { height: 12px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); }
     .status-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
 </style>
 {% endblock %}
@@ -31,7 +19,7 @@
         <div class="glass-panel welcome-gradient p-5 h-100 d-flex flex-column justify-content-center" style="position: relative; overflow: hidden;">
             <div style="position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; background: #06b6d4; filter: blur(80px); opacity: 0.3;"></div>
             
-            <h1 class="text-white fw-bold mb-2" style="font-size: 2.5rem;">Welcome back, {{ user.username|default:"User" }}</h1>
+            <h1 class="text-white fw-bold mb-2" style="font-size: 2.5rem;">Welcome back, {{ user.first_name|default:user.username }}</h1>
             <p class="text-white-50 fs-5 m-0">Today is {% now "l, F j, Y" %}. Let's get things done.</p>
         </div>
     </div>
@@ -39,28 +27,36 @@
     <div class="col-lg-4">
         <div class="row g-3 h-100">
             <div class="col-6">
-                <div class="glass-panel p-3 h-100 d-flex flex-column justify-content-between">
-                    <span class="text-white-50 text-uppercase small fw-bold" style="letter-spacing: 1px;">Subtasks</span>
-                    <span class="metric-number text-white">45</span>
-                </div>
+                <a href="{% url 'subtasks' %}" class="text-decoration-none">
+                    <div class="glass-panel p-3 h-100 d-flex flex-column justify-content-between hover-white transition-all">
+                        <span class="text-white-50 text-uppercase small fw-bold" style="letter-spacing: 1px;">Subtasks</span>
+                        <span class="metric-number text-white">{{ total_subtasks }}</span>
+                    </div>
+                </a>
             </div>
             <div class="col-6">
-                <div class="glass-panel p-3 h-100 d-flex flex-column justify-content-between">
-                    <span class="text-white-50 text-uppercase small fw-bold" style="letter-spacing: 1px;">Notes</span>
-                    <span class="metric-number text-white">39</span>
-                </div>
+                <a href="{% url 'notes' %}" class="text-decoration-none">
+                    <div class="glass-panel p-3 h-100 d-flex flex-column justify-content-between hover-white transition-all">
+                        <span class="text-white-50 text-uppercase small fw-bold" style="letter-spacing: 1px;">Notes</span>
+                        <span class="metric-number text-white">{{ total_notes }}</span>
+                    </div>
+                </a>
             </div>
             <div class="col-6">
-                <div class="glass-panel p-3 h-100 d-flex flex-column justify-content-between">
-                    <span class="text-white-50 text-uppercase small fw-bold" style="letter-spacing: 1px;">Categories</span>
-                    <span class="metric-number text-white">5</span>
-                </div>
+                <a href="{% url 'categories' %}" class="text-decoration-none">
+                    <div class="glass-panel p-3 h-100 d-flex flex-column justify-content-between hover-white transition-all">
+                        <span class="text-white-50 text-uppercase small fw-bold" style="letter-spacing: 1px;">Categories</span>
+                        <span class="metric-number text-white">{{ total_categories }}</span>
+                    </div>
+                </a>
             </div>
             <div class="col-6">
-                <div class="glass-panel p-3 h-100 d-flex flex-column justify-content-between">
-                    <span class="text-white-50 text-uppercase small fw-bold" style="letter-spacing: 1px;">Priorities</span>
-                    <span class="metric-number text-white">5</span>
-                </div>
+                <a href="{% url 'priorities' %}" class="text-decoration-none">
+                    <div class="glass-panel p-3 h-100 d-flex flex-column justify-content-between hover-white transition-all">
+                        <span class="text-white-50 text-uppercase small fw-bold" style="letter-spacing: 1px;">Priorities</span>
+                        <span class="metric-number text-white">{{ total_priorities }}</span>
+                    </div>
+                </a>
             </div>
         </div>
     </div>
@@ -148,18 +144,16 @@
             </div>
 
             <div class="d-flex flex-column gap-3">
-                <div class="glass-panel p-3 d-flex justify-content-between align-items-center" style="background: rgba(255,255,255,0.02);">
-                    <span class="text-white-50">Personal</span>
-                    <span class="text-white fw-bold">6 tasks</span>
-                </div>
-                <div class="glass-panel p-3 d-flex justify-content-between align-items-center" style="background: rgba(255,255,255,0.02);">
-                    <span class="text-white-50">Projects</span>
-                    <span class="text-white fw-bold">5 tasks</span>
-                </div>
-                <div class="glass-panel p-3 d-flex justify-content-between align-items-center" style="background: rgba(255,255,255,0.02);">
-                    <span class="text-white-50">Work</span>
-                    <span class="text-white fw-bold">4 tasks</span>
-                </div>
+                {% for category in top_categories %}
+                <a href="{% url 'categories' %}" class="text-decoration-none">
+                    <div class="glass-panel p-3 d-flex justify-content-between align-items-center transition-all hover-white" style="background: rgba(255,255,255,0.02);">
+                        <span class="text-white-50">{{ category.name }}</span>
+                        <span class="text-white fw-bold">{{ category.task_count }} tasks</span>
+                    </div>
+                </a>
+                {% empty %}
+                <p class="text-white-50 text-center py-3">No categories available yet.</p>
+                {% endfor %}
             </div>
         </div>
     </div>

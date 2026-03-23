@@ -1,0 +1,225 @@
+:root {
+    --hangarin-bg: #f4f5f8 !important;
+    --hangarin-card: #ffffff !important;
+    --hangarin-sidebar: #111c43 !important;
+    --hangarin-sidebar-text: #a3aed1 !important;
+    --hangarin-sidebar-hover: rgba(255, 255, 255, 0.05) !important;
+    --hangarin-accent-purple: #8b5cf6 !important;
+    --hangarin-magenta: #D900CC !important;
+    --hangarin-purple-deep: #9400D3 !important;
+    --hangarin-text-main: #1e293b !important;
+    --hangarin-text-muted: #64748b !important;
+    --hangarin-border: #e2e8f0 !important;
+    --hangarin-shadow: 0 4px 24px 0 rgba(34, 41, 47, 0.05) !important;
+    --hangarin-thead: #f8f9fa !important;
+    --hangarin-row-hover: #f8fafc !important;
+    --hangarin-input-bg: #ffffff !important;
+}
+
+html.dark {
+    --hangarin-bg: #0f172a !important;
+    --hangarin-card: #1e293b !important;
+    --hangarin-sidebar: #0b1120 !important;
+    --hangarin-sidebar-text: #94a3b8 !important;
+    --hangarin-sidebar-hover: rgba(255, 255, 255, 0.05) !important;
+    --hangarin-text-main: #f8fafc !important;
+    --hangarin-text-muted: #94a3b8 !important;
+    --hangarin-border: #334155 !important;
+    --hangarin-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.2) !important;
+    --hangarin-thead: #1e293b !important;
+    --hangarin-row-hover: #334155 !important;
+    --hangarin-input-bg: #0f172a !important;
+}
+
+html, body, main, #container, #content, .min-h-screen {
+    background-color: var(--hangarin-bg) !important;
+    background-image: none !important;
+    color: var(--hangarin-text-main) !important;
+    transition: background-color 0.3s ease, color 0.3s ease !important;
+}
+
+.bg-white, .bg-gray-50, .bg-gray-100, .bg-slate-50,
+.dark\:bg-gray-900, .dark\:bg-slate-900, .dark\:bg-gray-800,
+.dark\:bg-gray-700 {
+    background-color: var(--hangarin-card) !important;
+}
+
+aside, #nav-sidebar {
+    background-color: var(--hangarin-sidebar) !important;
+    border-right: none !important;
+    transition: background-color 0.3s ease !important;
+}
+
+aside [class*="bg-"] {
+    background-color: transparent !important;
+}
+
+header, .rounded-md, .shadow-sm, table, .card, .module, .overflow-hidden {
+    background-color: var(--hangarin-card) !important;
+    border: 1px solid var(--hangarin-border) !important;
+    box-shadow: var(--hangarin-shadow) !important;
+    backdrop-filter: none !important; 
+    transition: background-color 0.3s ease, border-color 0.3s ease !important;
+}
+
+header {
+    border-bottom: 1px solid var(--hangarin-border) !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+}
+
+aside header a {
+    display: flex !important;
+    align-items: center !important;
+    font-weight: 800 !important;
+    font-size: 1.2rem !important;
+    color: #ffffff !important;
+    letter-spacing: 0.5px !important;
+}
+
+aside header a::before {
+    content: '\2B22' !important;
+    margin-right: 12px !important;
+    font-size: 1.8rem !important;
+    background: linear-gradient(135deg, var(--hangarin-magenta) 0%, var(--hangarin-purple-deep) 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    filter: drop-shadow(0 0 5px rgba(217, 0, 204, 0.4)) !important; 
+}
+
+aside h3, aside .text-gray-500, aside .uppercase, aside [class*="caption"] {
+    color: #ffffff !important;
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1.5px !important;
+    margin: 24px 0 8px 10px !important;
+    opacity: 0.5 !important;
+    background: transparent !important;
+    border: none !important;
+}
+
+aside a {
+    color: var(--hangarin-sidebar-text) !important;
+    margin: 2px 10px !important;
+    padding: 8px 15px !important;
+    border-radius: 6px !important;
+    border-left: 3px solid transparent !important;
+    transition: all 0.2s ease !important;
+    background-color: transparent !important;
+}
+
+aside a:hover {
+    background-color: var(--hangarin-sidebar-hover) !important;
+    color: #ffffff !important;
+}
+
+aside a[aria-current="page"], aside a.active {
+    background-color: rgba(139, 92, 246, 0.1) !important;
+    border-left: 3px solid var(--hangarin-accent-purple) !important;
+    color: var(--hangarin-accent-purple) !important;
+    font-weight: 600 !important;
+}
+
+aside > div:last-child, .unfold-user-menu {
+    background-color: rgba(0, 0, 0, 0.1) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+    position: sticky !important;
+    bottom: 0 !important;
+    z-index: 100 !important;
+    width: 100% !important;
+    padding: 15px !important;
+    margin: 0 !important;
+}
+
+aside > div:last-child *, .unfold-user-menu * {
+    color: var(--hangarin-sidebar-text) !important;
+}
+
+aside .unfold-user-menu div a:nth-child(2),
+aside .unfold-user-menu div p:nth-child(2) {
+    display: none !important;
+}
+
+aside .unfold-user-menu div a:nth-child(1),
+aside .unfold-user-menu div p:nth-child(1) {
+    color: #ffffff !important;
+    font-weight: 600 !important;
+}
+
+h1, h2, h3, h4, h5, h6, label, span, p, div {
+    color: var(--hangarin-text-main) !important;
+}
+
+aside header a, aside h3, aside .text-gray-500, aside .uppercase, aside [class*="caption"] {
+    color: #ffffff !important;
+}
+aside a {
+    color: var(--hangarin-sidebar-text) !important;
+}
+aside a:hover {
+    color: #ffffff !important;
+}
+aside a[aria-current="page"], aside a.active {
+    color: var(--hangarin-accent-purple) !important;
+}
+
+thead, thead th, thead tr, .card-header {
+    background-color: var(--hangarin-thead) !important;
+    color: var(--hangarin-text-muted) !important;
+    border-bottom: 1px solid var(--hangarin-border) !important;
+    font-weight: 600 !important;
+    transition: background-color 0.3s ease !important;
+}
+
+tbody tr, tbody td, ul li, .border-t {
+    background-color: var(--hangarin-card) !important;
+    color: var(--hangarin-text-main) !important;
+    border-bottom: 1px solid var(--hangarin-border) !important;
+    transition: background-color 0.15s ease !important;
+}
+
+tbody tr:hover, tbody tr:hover td, ul li:hover {
+    background-color: var(--hangarin-row-hover) !important;
+    cursor: pointer !important;
+}
+
+.rounded-md a, .module a { 
+    color: var(--hangarin-accent-purple) !important; 
+}
+
+.bg-primary-600, .bg-primary-500, button[type="submit"] {
+    background-color: var(--hangarin-accent-purple) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 6px !important;
+    font-weight: 600 !important;
+    transition: all 0.2s ease !important;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3) !important;
+}
+
+.bg-primary-600:hover, button[type="submit"]:hover {
+    background-color: #7c3aed !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 15px rgba(139, 92, 246, 0.4) !important;
+}
+
+input, select, textarea {
+    background-color: var(--hangarin-input-bg) !important;
+    border: 1px solid var(--hangarin-border) !important;
+    color: var(--hangarin-text-main) !important;
+    border-radius: 6px !important;
+    box-shadow: none !important;
+    transition: background-color 0.3s ease, border-color 0.3s ease !important;
+}
+
+input:focus, select:focus { 
+    border-color: var(--hangarin-accent-purple) !important; 
+    box-shadow: 0 0 0 1px var(--hangarin-accent-purple) !important;
+    outline: none !important; 
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-thumb { background: var(--hangarin-border); border-radius: 10px; }
+::-webkit-scrollbar-track { background: var(--hangarin-bg); }

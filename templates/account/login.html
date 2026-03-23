@@ -12,7 +12,7 @@
     <div class="bird bird3"></div>
 </div>
 
-<div class="row justify-content-center align-items-center position-relative" style="min-height: 75vh; z-index: 10;">
+<div class="row justify-content-center align-items-center position-relative w-100 m-0" style="min-height: 75vh; z-index: 10;">
     <div class="col-md-6 col-lg-5 col-xl-4 text-center">
         
         <div class="card shadow-lg border-0 rounded-4 p-5" style="background-color: rgba(255, 255, 255, 0.95);">
@@ -46,7 +46,6 @@
                 
                 <div class="mb-4 text-start">
                     <label for="id_password" class="form-label fw-bold small text-muted mb-1">Password</label>
-                    
                     <div class="input-group">
                         <input type="password" name="password" id="id_password" class="form-control form-control-lg bg-light border-0 border-end-0 fs-6" placeholder="••••••••" required style="border-top-right-radius: 0; border-bottom-right-radius: 0;">
                         <span class="input-group-text bg-light border-0 border-start-0 cursor-pointer transition-hover" id="togglePasswordCursor" style="border-top-left-radius: 0; border-bottom-left-radius: 0;">
@@ -66,6 +65,10 @@
             
             <a href="{% provider_login_url 'google' %}" class="btn btn-outline-dark btn-lg w-100 rounded-pill fw-bold d-flex align-items-center justify-content-center transition-hover fs-6">
                 <i class="bi bi-google text-danger me-2"></i> Continue with Google
+            </a>
+
+            <a href="{% provider_login_url 'github' %}" class="btn btn-outline-dark btn-lg w-100 rounded-pill fw-bold d-flex align-items-center justify-content-center transition-hover fs-6 mt-3">
+                <i class="bi bi-github me-2"></i> Continue with GitHub
             </a>
             
             <div class="mt-4 pt-2">
@@ -109,11 +112,8 @@
         const eyeIcon = document.querySelector("#togglePasswordIcon");
 
         togglePasswordCursor.addEventListener("click", function() {
-            // Toggle the 'type' attribute
             const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
             passwordInput.setAttribute("type", type);
-            
-            // Toggle the eye / eye-slash icon
             eyeIcon.classList.toggle("bi-eye");
             eyeIcon.classList.toggle("bi-eye-slash");
         });

@@ -6,6 +6,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('', views.dashboard, name='dashboard'), 
+    path('tasks/', views.task_board, name='tasks'), # <-- NEW: Dedicated Tasks Board
     path('create/', views.create_task, name='create_task'),
     path('task/<int:pk>/', views.task_detail, name='task_detail'),
     path('categories/', views.categories_list, name='categories'),

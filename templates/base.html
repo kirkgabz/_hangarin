@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hangarin | Glass Workspace</title>
+    <title>Hangarin</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* Base Background - Blurred Workspace */
         body, html {
             margin: 0; padding: 0; height: 100vh;
             font-family: 'Inter', sans-serif;
@@ -25,122 +24,45 @@
 
         h1, h2, h3, h4, h5 { font-family: 'Poppins', sans-serif; }
 
-        /* The Master Holographic Container (From Image 2) */
         .master-container {
-            width: 96vw;
-            height: 94vh;
-            display: flex;
+            width: 96vw; height: 94vh; display: flex;
             background: rgba(16, 25, 40, 0.35);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
+            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px;
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(255,255,255,0.05);
             overflow: hidden;
         }
 
-        /* Inner Glass Panels */
         .glass-panel {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            transition: all 0.3s ease;
+            border-radius: 16px; transition: all 0.3s ease;
         }
 
         .glass-panel:hover {
             background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(6, 182, 212, 0.4); /* Cyan Glow on hover */
+            border-color: rgba(6, 182, 212, 0.4); 
             box-shadow: 0 0 20px rgba(6, 182, 212, 0.1);
         }
 
-        /* Sidebar Styling */
-        .sidebar {
-            width: 260px;
-            display: flex;
-            flex-direction: column;
-            padding: 25px 20px;
-            border-right: 1px solid rgba(255, 255, 255, 0.08);
-            background: rgba(0, 0, 0, 0.2);
-        }
-
-        .sidebar-brand {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            margin-bottom: 40px;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            text-shadow: 0 0 10px rgba(255,255,255,0.3);
-        }
-
+        .sidebar { width: 260px; display: flex; flex-direction: column; padding: 25px 20px; border-right: 1px solid rgba(255, 255, 255, 0.08); background: rgba(0, 0, 0, 0.2); }
+        .sidebar-brand { font-family: 'Poppins', sans-serif; font-size: 1.5rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 40px; color: #fff; display: flex; align-items: center; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
         .sidebar-menu { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
         
-        .sidebar-menu a {
-            color: #94a3b8;
-            text-decoration: none;
-            padding: 12px 20px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            border: 1px solid transparent;
-        }
+        .sidebar-menu a { color: #94a3b8; text-decoration: none; padding: 12px 20px; border-radius: 12px; display: flex; align-items: center; gap: 12px; font-weight: 500; transition: all 0.3s ease; border: 1px solid transparent; }
+        .sidebar-menu a:hover, .sidebar-menu a.active { color: #fff; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: inset 4px 0 0 #06b6d4; }
 
-        .sidebar-menu a:hover, .sidebar-menu a.active {
-            color: #fff;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: inset 4px 0 0 #06b6d4; /* Cyan accent line */
-        }
+        .main-wrapper { flex-grow: 1; display: flex; flex-direction: column; padding: 25px 30px; overflow-y: auto; }
+        .top-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
 
-        /* Main Content Wrapper */
-        .main-wrapper {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            padding: 25px 30px;
-            overflow-y: auto;
-        }
+        .btn-neon { background: transparent; color: #fff; border: 1px solid rgba(255, 255, 255, 0.2); padding: 8px 20px; border-radius: 20px; font-weight: 500; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; transition: all 0.3s ease; text-decoration: none; }
+        .btn-neon:hover { border-color: #06b6d4; color: #06b6d4; box-shadow: 0 0 15px rgba(6, 182, 212, 0.3); }
 
-        /* Top Header Styling */
-        .top-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        /* Neon Buttons */
-        .btn-neon {
-            background: transparent;
-            color: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-weight: 500;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .btn-neon:hover {
-            border-color: #06b6d4;
-            color: #06b6d4;
-            box-shadow: 0 0 15px rgba(6, 182, 212, 0.3);
-        }
-
-        /* Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
 
+        .search-input:focus { outline: none; }
     </style>
     {% block extra_css %}{% endblock %}
 </head>
@@ -148,57 +70,66 @@
 
     <div class="master-container">
         
-        <nav class="sidebar">
-            <div class="sidebar-brand">
-                <i class="bi bi-hexagon-fill text-info me-2 fs-4" style="filter: drop-shadow(0 0 8px #06b6d4);"></i>
-                HANGARIN
-            </div>
-            
-            <ul class="sidebar-menu">
-                <li><a href="{% url 'dashboard' %}" class="{% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}"><i class="bi bi-grid-1x2"></i> Dashboard</a></li>
-                <li><a href="{% url 'dashboard' %}"><i class="bi bi-check2-circle"></i> Tasks</a></li>
-                <li><a href="{% url 'subtasks' %}"><i class="bi bi-diagram-2"></i> Sub Tasks</a></li>
-                <li><a href="{% url 'categories' %}"><i class="bi bi-collection"></i> Categories</a></li>
-                <li><a href="{% url 'priorities' %}"><i class="bi bi-flag"></i> Priorities</a></li>
-                <li><a href="{% url 'notes' %}"><i class="bi bi-journal-text"></i> Notes</a></li>
-            </ul>
-        </nav>
-        
-        <div class="main-wrapper">
-            
-            <header class="top-header">
-                <h2 class="m-0 fs-3 fw-bold text-white">Dashboard</h2>
-                
-                <div class="d-flex align-items-center gap-3">
-                    <a href="{% url 'create_task' %}" class="btn-neon">
-                        <i class="bi bi-plus-circle"></i> New Task
-                    </a>
-                    
-                    <div class="glass-panel px-4 py-2 d-flex align-items-center" style="border-radius: 20px;">
-                        <span class="text-white-50 text-uppercase" style="font-size: 0.7rem; letter-spacing: 1px;">Today</span>
-                        <span class="ms-2 fw-medium fs-6">{% now "M d, Y" %}</span>
-                    </div>
-
-                    <div class="glass-panel px-3 py-1 d-flex align-items-center gap-2" style="border-radius: 30px;">
-                        <div class="rounded-circle text-white d-flex justify-content-center align-items-center fw-bold" style="width: 32px; height: 32px; background: linear-gradient(135deg, #6366f1, #a855f7);">
-                            {{ user.email|make_list|first|upper|default:"U" }}
-                        </div>
-                        <span class="fw-medium px-2">{{ user.username|default:"User" }}</span>
-                    </div>
-
-                    <form method="post" action="{% url 'account_logout' %}" class="m-0">
-                        {% csrf_token %}
-                        <button type="submit" class="btn-neon text-danger border-danger border-opacity-50">
-                            <i class="bi bi-box-arrow-right"></i> Log Out
-                        </button>
-                    </form>
+        {% if user.is_authenticated %}
+            <nav class="sidebar">
+                <div class="sidebar-brand">
+                    <i class="bi bi-hexagon-fill text-info me-2 fs-4" style="filter: drop-shadow(0 0 8px #06b6d4);"></i>HANGARIN
                 </div>
-            </header>
+                
+                <ul class="sidebar-menu">
+                    <li><a href="{% url 'dashboard' %}" class="{% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}"><i class="bi bi-grid-1x2"></i> Dashboard</a></li>
+                    <li><a href="{% url 'tasks' %}" class="{% if request.resolver_match.url_name == 'tasks' %}active{% endif %}"><i class="bi bi-check2-circle"></i> Tasks</a></li>
+                    <li><a href="{% url 'subtasks' %}" class="{% if request.resolver_match.url_name == 'subtasks' %}active{% endif %}"><i class="bi bi-diagram-2"></i> Sub Tasks</a></li>
+                    <li><a href="{% url 'categories' %}" class="{% if request.resolver_match.url_name == 'categories' %}active{% endif %}"><i class="bi bi-collection"></i> Categories</a></li>
+                    <li><a href="{% url 'priorities' %}" class="{% if request.resolver_match.url_name == 'priorities' %}active{% endif %}"><i class="bi bi-flag"></i> Priorities</a></li>
+                    <li><a href="{% url 'notes' %}" class="{% if request.resolver_match.url_name == 'notes' %}active{% endif %}"><i class="bi bi-journal-text"></i> Notes</a></li>
+                </ul>
+            </nav>
+        {% endif %}
             
-            {% block content %}
-            {% endblock %}
+        <div class="{% if user.is_authenticated %}main-wrapper{% else %}w-100 h-100 d-flex justify-content-center align-items-center{% endif %}">
             
+            {% if user.is_authenticated %}
+                <header class="top-header">
+                    <h2 class="m-0 fs-3 fw-bold text-white">{% block header_title %}Dashboard{% endblock %}</h2>
+                    
+                    <div class="d-flex align-items-center gap-3">
+                        <form method="GET" action="{% url 'tasks' %}" class="glass-panel px-3 py-1 d-flex align-items-center m-0" style="border-radius: 20px;">
+                            <i class="bi bi-search text-white-50"></i>
+                            <input type="text" name="search" class="search-input bg-transparent border-0 text-white ms-2" placeholder="Search tasks..." style="width: 180px;">
+                        </form>
+
+                        <a href="{% url 'create_task' %}" class="btn-neon"><i class="bi bi-plus-circle"></i> New Task</a>
+                        
+                        <div class="glass-panel px-4 py-2 d-flex align-items-center" style="border-radius: 20px;">
+                            <span class="text-white-50 text-uppercase" style="font-size: 0.7rem; letter-spacing: 1px;">Today</span>
+                            <span class="ms-2 fw-medium fs-6">{% now "M d, Y" %}</span>
+                        </div>
+
+                        <div class="glass-panel px-3 py-1 d-flex align-items-center gap-2" style="border-radius: 30px;">
+                            <div class="rounded-circle text-white d-flex justify-content-center align-items-center fw-bold" style="width: 32px; height: 32px; background: linear-gradient(135deg, #6366f1, #a855f7);">
+                                {{ user.email|make_list|first|upper|default:"U" }}
+                            </div>
+                            <span class="fw-medium px-2">{{ user.first_name|default:user.username }}</span>
+                        </div>
+
+                        <form method="post" action="{% url 'account_logout' %}" class="m-0">
+                            {% csrf_token %}
+                            <button type="submit" class="btn-neon text-danger border-danger border-opacity-50">
+                                <i class="bi bi-box-arrow-right"></i> Log Out
+                            </button>
+                        </form>
+                    </div>
+                </header>
+            {% endif %}
+            
+            <div class="w-100">
+                {% block content %}
+                {% endblock %}
+            </div>
+
         </div>
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
