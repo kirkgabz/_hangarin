@@ -7,7 +7,7 @@ SECRET_KEY = 'django-insecure-=d!zu&!e3k8r075tli0(%3!q6vdb)9lsj=t)bjgi6e3@y6^bc@
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['kirk17.pythonanywhere.com', '127.0.0.1', 'localhost']
 
 INSTALLED_APPS = [
     'unfold',
