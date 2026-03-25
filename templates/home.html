@@ -147,7 +147,10 @@
                 {% for category in top_categories %}
                 <a href="{% url 'categories' %}" class="text-decoration-none">
                     <div class="glass-panel p-3 d-flex justify-content-between align-items-center transition-all hover-white" style="background: rgba(255,255,255,0.02);">
-                        <span class="text-white-50">{{ category.name }}</span>
+                        <div>
+                            <span class="text-white-50 d-block">{{ category.name }}</span>
+                            <span class="text-white-50 opacity-50" style="font-size: 0.7rem;"><i class="bi bi-calendar-plus me-1"></i>{{ category.created_at|date:"M d, Y" }}</span>
+                        </div>
                         <span class="text-white fw-bold">{{ category.task_count }} tasks</span>
                     </div>
                 </a>

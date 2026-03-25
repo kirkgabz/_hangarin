@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% block header_btn_text %}New Note{% endblock %}
+{% block header_btn_url %}#{% endblock %}
 {% block header_title %}Notes Archive{% endblock %}
 
 {% block content %}
@@ -27,11 +29,14 @@
                         <p class="text-white fs-6 mb-3" style="line-height: 1.5;">"{{ note.content }}"</p>
                         <div class="mt-auto">
                             <hr class="border-white border-opacity-25 mt-0 mb-2">
-                            <div class="d-flex justify-content-between align-items-center text-white-50 small">
-                                <a href="{% url 'task_detail' note.task.id %}" class="text-info text-decoration-none text-truncate me-2" style="max-width: 140px;">
+                            <div class="d-flex justify-content-between align-items-end text-white-50 small">
+                                <a href="{% url 'task_detail' note.task.id %}" class="text-info text-decoration-none text-truncate me-2 mb-1" style="max-width: 140px;">
                                     <i class="bi bi-link-45deg"></i> {{ note.task.title }}
                                 </a>
-                                <span class="text-nowrap"><i class="bi bi-clock me-1"></i>{{ note.created_at|date:"M d" }}</span>
+                                <div class="text-end" style="font-size: 0.7rem;">
+                                    <div class="text-nowrap"><i class="bi bi-clock me-1"></i>Created: {{ note.created_at|date:"M d" }}</div>
+                                    <div class="text-nowrap mt-1"><i class="bi bi-arrow-repeat me-1"></i>Updated: {{ note.updated_at|time:"H:i" }}</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -55,11 +60,14 @@
                         <p class="text-white fs-6 mb-3" style="line-height: 1.5;">"{{ note.content }}"</p>
                         <div class="mt-auto">
                             <hr class="border-white border-opacity-25 mt-0 mb-2">
-                            <div class="d-flex justify-content-between align-items-center text-white-50 small">
-                                <a href="{% url 'task_detail' note.task.id %}" class="text-info text-decoration-none text-truncate me-2" style="max-width: 140px;">
+                            <div class="d-flex justify-content-between align-items-end text-white-50 small">
+                                <a href="{% url 'task_detail' note.task.id %}" class="text-info text-decoration-none text-truncate me-2 mb-1" style="max-width: 140px;">
                                     <i class="bi bi-link-45deg"></i> {{ note.task.title }}
                                 </a>
-                                <span class="text-nowrap"><i class="bi bi-clock me-1"></i>{{ note.created_at|date:"M d" }}</span>
+                                <div class="text-end" style="font-size: 0.7rem;">
+                                    <div class="text-nowrap"><i class="bi bi-clock me-1"></i>Created: {{ note.created_at|date:"M d" }}</div>
+                                    <div class="text-nowrap mt-1"><i class="bi bi-arrow-repeat me-1"></i>Updated: {{ note.updated_at|time:"H:i" }}</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -83,11 +91,14 @@
                         <p class="text-white fs-6 mb-3" style="line-height: 1.5;">"{{ note.content }}"</p>
                         <div class="mt-auto">
                             <hr class="border-white border-opacity-25 mt-0 mb-2">
-                            <div class="d-flex justify-content-between align-items-center text-white-50 small">
-                                <a href="{% url 'task_detail' note.task.id %}" class="text-info text-decoration-none text-truncate me-2" style="max-width: 140px;">
+                            <div class="d-flex justify-content-between align-items-end text-white-50 small">
+                                <a href="{% url 'task_detail' note.task.id %}" class="text-info text-decoration-none text-truncate me-2 mb-1" style="max-width: 140px;">
                                     <i class="bi bi-link-45deg"></i> {{ note.task.title }}
                                 </a>
-                                <span class="text-nowrap"><i class="bi bi-clock me-1"></i>{{ note.created_at|date:"M d" }}</span>
+                                <div class="text-end" style="font-size: 0.7rem;">
+                                    <div class="text-nowrap"><i class="bi bi-clock me-1"></i>Created: {{ note.created_at|date:"M d" }}</div>
+                                    <div class="text-nowrap mt-1"><i class="bi bi-arrow-repeat me-1"></i>Updated: {{ note.updated_at|time:"H:i" }}</div>
+                                </div>
                             </div>
                         </div>
                     </div>

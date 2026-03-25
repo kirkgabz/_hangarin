@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% block header_btn_text %}New Category{% endblock %}
+{% block header_btn_url %}#{% endblock %}
 {% block header_title %}Categories{% endblock %}
 
 {% block content %}
@@ -22,7 +24,10 @@
                     <i class="bi bi-collection display-4 text-info mb-3"></i>
                     <h4 class="text-white fw-bold">{{ category.name }}</h4>
                     <div class="mt-auto pt-3 border-top border-white border-opacity-10">
-                        <p class="text-white-50 mb-0 fs-6">{{ category.task_set.count }} Tasks inside</p>
+                        <p class="text-white-50 mb-1 fs-6">{{ category.task_set.count }} Tasks inside</p>
+                        <p class="text-white-50 mb-0 opacity-75" style="font-size: 0.7rem;">
+                            <i class="bi bi-calendar-plus me-1"></i>Added: {{ category.created_at|date:"M d, Y" }}
+                        </p>
                     </div>
                 </div>
             </a>

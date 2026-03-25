@@ -145,3 +145,19 @@ def notes_list(request):
         'completed_notes': completed_notes,
     }
     return render(request, 'notes.html', context)
+
+def create_subtask(request):
+    # TODO: 
+    return render(request, 'create_subtask.html')
+
+def create_category(request):
+    # TODO:
+    return render(request, 'create_category.html')
+
+def create_priority(request):
+    # TODO:
+    return render(request, 'create_priority.html')
+
+def create_note(request):
+    # TODO:
+    return render(request, 'create_note.html')

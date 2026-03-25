@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% block header_btn_text %}New Subtask{% endblock %}
+{% block header_btn_url %}#{% endblock %}
 {% block header_title %}Sub Tasks{% endblock %}
 
 {% block extra_css %}
@@ -33,6 +35,7 @@
                     <th class="py-3 fw-medium text-white-50 border-bottom border-white border-opacity-25">Subtask Title</th>
                     <th class="py-3 fw-medium text-white-50 border-bottom border-white border-opacity-25">Status</th>
                     <th class="py-3 fw-medium text-white-50 border-bottom border-white border-opacity-25">Parent Task</th>
+                    <th class="py-3 fw-medium text-white-50 border-bottom border-white border-opacity-25">Created</th>
                 </tr>
             </thead>
             <tbody>
@@ -49,10 +52,13 @@
                             {{ subtask.parent_task.title|truncatechars:40 }}
                         </a>
                     </td>
+                    <td class="py-3 text-white-50" style="font-size: 0.85rem;">
+                        <i class="bi bi-clock me-1"></i>{{ subtask.created_at|date:"M d, Y" }}
+                    </td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="3" class="text-white-50 py-5 text-center border-0">
+                    <td colspan="4" class="text-white-50 py-5 text-center border-0">
                         <i class="bi bi-inbox display-4 d-block mb-3"></i>No subtasks found.
                     </td>
                 </tr>

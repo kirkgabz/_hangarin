@@ -96,11 +96,12 @@
                     <div class="d-flex align-items-center gap-3">
                         <form method="GET" action="{% url 'tasks' %}" class="glass-panel px-3 py-1 d-flex align-items-center m-0" style="border-radius: 20px;">
                             <i class="bi bi-search text-white-50"></i>
-                            <input type="text" name="search" class="search-input bg-transparent border-0 text-white ms-2" placeholder="Search tasks..." style="width: 180px;">
+                            <input type="text" name="search" class="search-input bg-transparent border-0 text-white ms-2" placeholder="Search" style="width: 180px;">
                         </form>
 
-                        <a href="{% url 'create_task' %}" class="btn-neon"><i class="bi bi-plus-circle"></i> New Task</a>
-                        
+                        <a href="{% block header_btn_url %}{% url 'create_task' %}{% endblock %}" class="btn-neon">
+                            <i class="bi bi-plus-circle"></i> {% block header_btn_text %}New Task{% endblock %}
+                        </a>
                         <div class="glass-panel px-4 py-2 d-flex align-items-center" style="border-radius: 20px;">
                             <span class="text-white-50 text-uppercase" style="font-size: 0.7rem; letter-spacing: 1px;">Today</span>
                             <span class="ms-2 fw-medium fs-6">{% now "M d, Y" %}</span>
