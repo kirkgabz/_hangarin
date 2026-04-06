@@ -110,7 +110,7 @@ ACCOUNT_LOGIN_METHODS = {'email'}
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'none'        
 SOCIALACCOUNT_AUTO_SIGNUP = True           
-SOCIALACCOUNT_LOGIN_ON_GET = True          
+SOCIALACCOUNT_LOGIN_ON_GET = True           
 ACCOUNT_LOGOUT_ON_GET = True               
 
 UNFOLD = {
@@ -137,7 +137,9 @@ UNFOLD = {
     },
 }
 
+# --- PWA CONFIGURATION (FULLY RENDERED MANIFEST) ---
 PWA_APP_NAME = 'Hangarin'
+PWA_APP_SHORT_NAME = 'Hangarin' # Added: Required for Chrome identification
 PWA_APP_DESCRIPTION = 'A Progressive Web App version of Hangarin'
 PWA_APP_THEME_COLOR = '#0A0A0A'
 PWA_APP_BACKGROUND_COLOR = '#FFFFFF'
@@ -169,5 +171,13 @@ PWA_APP_ICONS_APPLE = [
     }
 ]
 
+PWA_APP_SPLASH_SCREEN_BINARY = [
+    {
+        'src': '/static/img/icon-512.png',
+        'sizes': '512x512'
+    }
+]
+
 PWA_APP_DIR = 'ltr'
+PWA_APP_LANG = 'en-US' # Added: Required for browser localization
 PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'static/js', 'serviceworker.js')
