@@ -64,6 +64,60 @@
         ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
 
         .search-input:focus { outline: none; }
+
+        /* ========================================== */
+        /* MOBILE RESPONSIVE LAYOUT                   */
+        /* ========================================== */
+        @media (max-width: 768px) {
+            .master-container {
+                flex-direction: column;
+                width: 100vw;
+                height: 100vh;
+                border-radius: 0;
+            }
+            
+            .sidebar {
+                width: 100%;
+                padding: 15px;
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            }
+            
+            .sidebar-brand { 
+                margin-bottom: 15px; 
+                font-size: 1.2rem;
+            }
+            
+            .sidebar-menu {
+                flex-direction: row;
+                overflow-x: auto;
+                padding-bottom: 5px;
+            }
+            
+            .sidebar-menu a {
+                white-space: nowrap;
+                padding: 8px 15px;
+            }
+
+            .main-wrapper {
+                padding: 15px;
+            }
+
+            .top-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .top-header .d-flex {
+                flex-wrap: wrap;
+                width: 100%;
+            }
+
+            .search-input { 
+                width: 100px !important; 
+            }
+        }
     </style>
     {% block extra_css %}{% endblock %}
     {% progressive_web_app_meta %}
