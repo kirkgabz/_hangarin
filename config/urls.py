@@ -5,8 +5,8 @@ from tasks import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
+    path('', include('pwa.urls')),
     
-    # Existing Navigation
     path('', views.dashboard, name='dashboard'), 
     path('tasks/', views.task_board, name='tasks'),
     path('task/<int:pk>/', views.task_detail, name='task_detail'),
@@ -15,7 +15,6 @@ urlpatterns = [
     path('subtasks/', views.subtasks_list, name='subtasks'),
     path('notes/', views.notes_list, name='notes'),
     
-    # Creation URLs
     path('create/', views.create_task, name='create_task'),
     path('subtasks/create/', views.create_subtask, name='create_subtask'),
     path('categories/create/', views.create_category, name='create_category'),
